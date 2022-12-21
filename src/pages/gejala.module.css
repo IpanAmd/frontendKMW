@@ -1,0 +1,39 @@
+.containerFluid {
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    height: 100%;
+}
+
+.container {
+    min-height: 520px;
+    /* width: 50%; */
+    background-color: rgba(224, 245, 245, 0.8);
+    margin: 10px auto;
+    border-radius: 10px;
+    align-content: center;
+}
+
+.section {
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.main {
+    /* width: 50%; */
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+.tableHead {
+    text-align: center;
+    font-weight: bold;
+}
+
+.button {
+    display: flex;
+    justify-content: left;
+    font-weight: 500;
+    margin-left: 50px;
+    padding-bottom: 10px;
+}

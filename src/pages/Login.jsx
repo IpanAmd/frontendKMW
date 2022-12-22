@@ -1,6 +1,7 @@
 import style from "./login.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 import { Header, Footer } from "../components";
 import background from "../asset/bg1.png";
@@ -11,6 +12,11 @@ function Login() {
     const [password, setPassword] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        token? setIsLoggedIn(true):setIsLoggedIn(false);
+    }, [token])
 
     const handleLogin = () => {
         axios.post("http://localhost:8000/api/v1/auth/login",{
@@ -19,11 +25,14 @@ function Login() {
         })
         .then((Response)=>{
             localStorage.setItem("token", Response.data.data.token)
+            window.location.reload()
+            navigate("/")
+        })
+        .catch((error)=>{
+            console.log(error);
         })
     }
-    useEffect(()=>{
-        token? setIsLoggedIn(true):setIsLoggedIn(false);
-    }, [token])
+    
 
 // useState adalah function yang berguna sebagai penampung 
 // useEffect berfungsi untuk merefresh secara otomatis data yang ada di dalam function tsb
@@ -73,9 +82,7 @@ function Login() {
                     </Form>
     
                     </Container>
-                ):(
-                    null
-                )}
+                ):null}
             </Container>
 
             <Footer/>

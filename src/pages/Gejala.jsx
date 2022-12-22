@@ -2,6 +2,7 @@ import style from "./gejala.module.css";
 import {Container, Button, Table} from "react-bootstrap";
 import {Header, Footer} from "../components";
 import background from "../asset/bg1.png";
+// import { useState, useEffect } from "react";
 
 function Gejala() {
     return (

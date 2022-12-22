@@ -1,7 +1,21 @@
 import style from "./Header.module.css";
 import {Nav, Navbar, Stack} from "react-bootstrap";
+import { useState, useEffect } from "react";
 
 function Header() {
+    
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const token = localStorage.getItem("token");
+    useEffect(()=>{
+        token? setIsLoggedIn(true):setIsLoggedIn(false);
+    }, [token])
+
+    const handleLogout = () => {
+        setIsLoggedIn(false)
+        localStorage.removeItem("token")
+        window.location.reload()
+    }
+
     return (
         <>
             <Navbar className={style.size}>
@@ -15,7 +29,11 @@ function Header() {
                             <a className={style.navFont} href="/basisPengetahuan">Basis Pengetahuan</a>    
                         </Stack>
                         <div className="justify-content-end">
-                            <a className={style.styleLogin} href="/login">Login</a>
+                            {!isLoggedIn?(
+                                <a className={style.styleLogin} href="/login">Login</a>
+                            ):(     
+                                <a className={style.styleLogin} type="button" onClick={handleLogout}>Logout</a>
+                            )}
                         </div>
                     </div>
                 </Nav>

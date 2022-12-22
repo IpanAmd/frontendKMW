@@ -25,6 +25,9 @@ function Login() {
         token? setIsLoggedIn(true):setIsLoggedIn(false);
     }, [token])
 
+// useState adalah function yang berguna sebagai penampung 
+// useEffect berfungsi untuk merefresh secara otomatis data yang ada di dalam function tsb
+
     return (
         <>
             <Header/>

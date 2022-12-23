@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import { Home, Login, Gejala, Kerusakan, BasisPengetahuan, PetunjukPenggunaan, Pendaftaran, Diagnosa, HasilDiagnosa, } from './pages';
+import { Home, Login, Gejala, Kerusakan, BasisPengetahuan, PetunjukPenggunaan, Pendaftaran, Diagnosa, HasilDiagnosa, TambahDataGejala, TambahDataKerusakan, TambahBasisPengetahuan} from './pages';
 import ProtectedToken from './auth/ProtectedToken';
 
 function App() {
@@ -27,8 +27,11 @@ function App() {
               } />
               <Route path="petunjukPenggunaan" element={<PetunjukPenggunaan/>} />
               <Route path="Pendaftaran" element={<Pendaftaran/>} />
-              <Route path='Diagnosa' element={<Diagnosa/>} />
-              <Route path='HasilDiagnosa' element={<HasilDiagnosa/>} />
+              <Route path="Diagnosa" element={<Diagnosa/>} />
+              <Route path="HasilDiagnosa" element={<HasilDiagnosa/>} />
+              <Route path="TambahDataGejala" element={<TambahDataGejala/>}/> 
+              <Route path="TambahDataKerusakan" element={<TambahDataKerusakan/>}/> 
+              <Route path="TambahBasisPengetahuan" element={<TambahBasisPengetahuan/>}/> 
           </Routes>
         </BrowserRouter>
     </>

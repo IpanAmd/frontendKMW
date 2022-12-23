@@ -14,12 +14,11 @@ function Gejala() {
                 
                 <Container className={style.container}>
                     <section className={style.section}>
-                        <i class="fa-solid fa-plus"></i>
                         <h3>GEJALA KERUSAKAN</h3>
                     </section>
 
                     <div className={style.button}>
-                        <Button variant="warning" href="/" className="mx-3">TAMBAH DATA</Button>
+                        <Button variant="warning" href="/TambahDataGejala" className="mx-3">TAMBAH DATA</Button>
 
                     </div>
 

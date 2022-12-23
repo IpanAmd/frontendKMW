@@ -7,3 +7,6 @@ export { default as PetunjukPenggunaan } from "./PetunjukPenggunaan";
 export { default as Pendaftaran } from "./Pendaftaran";
 export { default as Diagnosa } from "./Dignosa";
 export { default as HasilDiagnosa} from "./HasilDiagnosa";
+export { default as TambahDataGejala } from "./TambahDataGejala";
+export { default as TambahDataKerusakan } from "./TambahDataKerusakan";
+export { default as TambahBasisPengetahuan } from "./TambahBasisPengetahuan";

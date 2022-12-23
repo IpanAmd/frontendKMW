@@ -19,8 +19,7 @@ function Kerusakan() {
                 </section>
 
                 <div className={style.button}>
-                    <Button variant="warning" href="/" className="mx-3">TAMBAH DATA</Button>
-
+                    <Button variant="warning" href="/TambahDataKerusakan" className="mx-3">TAMBAH DATA</Button>
                 </div>
 
                 <Table striped bordered size="md" className={style.main}>

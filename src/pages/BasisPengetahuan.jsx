@@ -14,12 +14,11 @@ function BasisPengetahuan() {
                 <Container className={style.container}>
                     
                     <section className={style.section}>
-                        <i class="fa-solid fa-plus"></i>
                         <h3>BASIS PENGETAHUAN</h3>
                     </section>
 
                     <div className={style.button}>
-                        <Button variant="warning" href="/" className="mx-3">TAMBAH DATA</Button>
+                        <Button variant="warning" href="/TambahBasisPengetahuan" className="mx-3">TAMBAH DATA</Button>
 
                     </div>
 

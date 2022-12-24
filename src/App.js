@@ -1,4 +1,5 @@
 import './App.css';
+import "../src/components/fontAwesome";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { Home, Login, Gejala, Kerusakan, BasisPengetahuan, PetunjukPenggunaan, Pendaftaran, Diagnosa, HasilDiagnosa, TambahDataGejala, TambahDataKerusakan, TambahBasisPengetahuan} from './pages';
 import ProtectedToken from './auth/ProtectedToken';

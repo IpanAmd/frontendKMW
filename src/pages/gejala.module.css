@@ -34,6 +34,31 @@
     display: flex;
     justify-content: left;
     font-weight: 500;
-    margin-left: 50px;
+    margin-left: 10px;
     padding-bottom: 10px;
+}
+
+.thSatu {
+    width: 5%;
+}
+
+.thDua {
+    width: 15%;
+}
+
+.tdAksi {
+    text-align: center;
+}
+
+.icon {
+  color: black;
+}
+
+.icon:hover {
+    color: blue;
+}
+
+.addItem {
+    padding-left: 10px;
+    font-weight: bold;
 }

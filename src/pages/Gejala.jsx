@@ -10,6 +10,7 @@ import { faPencil, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 function Gejala() {
 
     const [indication, setIndication] = useState([]);
+    // syntax untuk mengambil data dari page tambah data gejala yang telah di input sebelumnya 
     const tampilData = () => {
         axios.get(`http://localhost:8000/api/v1/indication/`)
         .then((response) => {
@@ -40,7 +41,6 @@ function Gejala() {
     return (
         <>
             <Header />
-
             {/* Container start */}
             <Container fluid className={style.containerFluid} style={{backgroundImage: `url(${background})`}}>
                 <Container className={style.container}>
@@ -65,10 +65,12 @@ function Gejala() {
                             </tr>
                         </thead>
                         <tbody>
+                            {/* .map sama seperti for dalam perulangan javascript, .map lebih simple karena tidak harus deklarasikan ulang dan lebih praktis dari pada for  */}
                             {indication.map((data,index) => {
                                 return (
                                     <tr key={data.id}>
                                         <td className={style.tdAksi}>{index+1}</td>
+                                        
                                         <td className={style.tdAksi}>{data.code}</td>
                                         <td>{data.name}</td>
                                         <td className={style.tdAksi}>
@@ -77,7 +79,7 @@ function Gejala() {
                                             </Button>
                                             <Button variant="link" value={data.id} onClick={hapusData}>
                                                 <FontAwesomeIcon icon={faTrash} className={style.icon}/>
-                                            </Button>                                    
+                                            </Button>   
                                         </td>
                                     </tr>     
                                 );
@@ -87,7 +89,6 @@ function Gejala() {
                 </Container>
             </Container>
             {/* Container end */}
-
             <Footer />
         </>
     )

@@ -53,7 +53,6 @@ function Login() {
         })
     }
     
-
 // useState adalah function yang berguna sebagai penampung 
 // useEffect berfungsi untuk merefresh secara otomatis data yang ada di dalam function tsb
 
@@ -102,13 +101,11 @@ function Login() {
                             </Button>
                         </div>
                     </Form>
-    
                     </Container>
                 ):null}
             </Container>
-
             <Footer/>
-        </>
+         </>
     )
 }
 

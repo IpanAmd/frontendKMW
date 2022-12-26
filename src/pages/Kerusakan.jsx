@@ -1,11 +1,41 @@
 import style from "./kerusakan.module.css";
 import {Container, Button, Table } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {Header, Footer} from "../components";
 import background from "../asset/bg1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function Kerusakan() {
+    
+    const [fault, setFault] = useState([]);
+    const tampilData = () => {
+        axios.get(`http://localhost:8000/api/v1/fault/`)
+        .then((response) => {
+            setFault(response.data.data)
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const hapusData = (e) => {
+        const id = e.currentTarget.value;
+        axios.delete(`http://localhost:8000/api/v1/fault/${id}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+        .then (() => {
+            window.location.reload()
+        })
+    }
+
+    useEffect(() => {
+        tampilData();
+    }, [])
+
     return (
         <>
             <Header/>
@@ -38,20 +68,28 @@ function Kerusakan() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className={style.tdAksi}>1</td>
-                                <td className={style.tdAksi}>G001</td>
-                                <td>Kerusakan 1</td>
-                                <td>Solusi</td>
-                                <td className={style.tdAksi}>
-                                    <Button variant="link" href="/GejalaEdit">
-                                        <FontAwesomeIcon icon={faPencil} className={style.icon}/>
-                                    </Button>
-                                    <Button variant="link">
-                                        <FontAwesomeIcon icon={faTrash} className={style.icon}/>
-                                    </Button>                                    
-                                </td>
-                            </tr>
+                            {fault.map((data, index) => {
+                                return (
+                                    <tr key={data.id}>
+                                    <td className={style.tdAksi}>{index+1}</td>
+
+                                    <td className={style.tdAksi}>{data.code}</td>
+
+                                    <td>{data.name}</td>
+
+                                    <td>{data.solution}</td>
+                                    <td className={style.tdAksi}>
+                                        <Button variant="link" href="/GejalaEdit">
+                                            <FontAwesomeIcon icon={faPencil} className={style.icon}/>
+                                        </Button>
+                                        <Button variant="link" value={data.id} onClick={hapusData}>
+                                            <FontAwesomeIcon icon={faTrash} className={style.icon}/>
+                                        </Button>                                    
+                                    </td>
+                                    </tr>
+                                )
+                            })}
+                            
                         </tbody>   
                     </Table>
                 </Container>

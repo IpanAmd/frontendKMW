@@ -10,12 +10,16 @@ function TambahDataGejala() {
     const [code, setCode] = useState("");
     const [name, setName] = useState("");
     const navigate = useNavigate();
+    // useNavigate digunakan untuk mengarahkan hasill response  dari kondisi didalamnya ke page atau tempat tujuan. 
+    //(e) event ini akan dipanggil lagi di codingan dalam form
     const tambahData = (e) => {
         e.preventDefault();
         const data = {
             code: code,
             name: name,
         }
+        // axios.post karena pada page ini kita akan membuat data baru
+        // link tersebut merupakan link yang telah dibuat di swagger untuk memudahkan dalam proses pemanggilan sesuai dengan page yang dituju
         axios.post(`http://localhost:8000/api/v1/indication/create`, data, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
@@ -34,7 +38,6 @@ function TambahDataGejala() {
     return(
         <>
             <Header/>
-
             <Container fluid className={style.containerFluid} style={{backgroundImage: `url(${background})`}}>
 
                 <Container className={style.container}>
@@ -49,14 +52,13 @@ function TambahDataGejala() {
                             required
                             />
                         </Form.Group>
-
                         <Form.Group className="mb-3">
                             <Form.Label>Nama Gejala</Form.Label>
                             <Form.Control type="text" placeholder="Masukan Nama Gejala" value={name} onChange={(e) => setName(e.target.value)}
                             required
                             />
                         </Form.Group>
-
+                        
                         <div className={style.button}>
                             <Button variant="warning" className="mx-3" type="submit" href="/gejala">
                                 KEMBALI
@@ -66,10 +68,8 @@ function TambahDataGejala() {
                             </Button>
                         </div>
                     </Form>
-
                 </Container>
             </Container>
-            
             <Footer/>
         </>
     )

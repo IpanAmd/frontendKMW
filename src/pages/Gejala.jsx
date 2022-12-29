@@ -2,6 +2,7 @@ import style from "./gejala.module.css";
 import {Container, Button, Table} from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {Header, Footer} from "../components";
 import background from "../asset/bg1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -74,9 +75,11 @@ function Gejala() {
                                         <td className={style.tdAksi}>{data.code}</td>
                                         <td>{data.name}</td>
                                         <td className={style.tdAksi}>
-                                            <Button variant="link" href="/GejalaEdit">
-                                                <FontAwesomeIcon icon={faPencil} className={style.icon}/>
-                                            </Button>
+                                            <Link to={`/EditGejala/${data.id}`}>
+                                                <Button variant="link">
+                                                    <FontAwesomeIcon icon={faPencil} className={style.icon}/>
+                                                </Button>
+                                            </Link>
                                             <Button variant="link" value={data.id} onClick={hapusData}>
                                                 <FontAwesomeIcon icon={faTrash} className={style.icon}/>
                                             </Button>   

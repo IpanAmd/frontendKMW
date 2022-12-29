@@ -1,7 +1,7 @@
 import './App.css';
 import "../src/components/fontAwesome";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import { Home, Login, Gejala, Kerusakan, BasisPengetahuan, PetunjukPenggunaan, Pendaftaran, Diagnosa, HasilDiagnosa, TambahDataGejala, TambahDataKerusakan, TambahBasisPengetahuan} from './pages';
+import { Home, Login, Gejala, Kerusakan, BasisPengetahuan, PetunjukPenggunaan, Pendaftaran, Diagnosa, HasilDiagnosa, TambahDataGejala, TambahDataKerusakan, TambahBasisPengetahuan, EditGejala, EditKerusakan} from './pages';
 import ProtectedToken from './auth/ProtectedToken';
 
 function App() {
@@ -32,7 +32,10 @@ function App() {
               <Route path="HasilDiagnosa" element={<HasilDiagnosa/>} />
               <Route path="TambahDataGejala" element={<TambahDataGejala/>}/> 
               <Route path="TambahDataKerusakan" element={<TambahDataKerusakan/>}/> 
-              <Route path="TambahBasisPengetahuan" element={<TambahBasisPengetahuan/>}/> 
+              <Route path="TambahBasisPengetahuan" element={<TambahBasisPengetahuan/>}/>
+              <Route path="EditGejala/:id" element={<EditGejala/>}/>
+              <Route path="EditKerusakan" element={<EditKerusakan/>}/>
+
           </Routes>
         </BrowserRouter>
     </>

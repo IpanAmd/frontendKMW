@@ -79,7 +79,7 @@ function Kerusakan() {
 
                                     <td>{data.solution}</td>
                                     <td className={style.tdAksi}>
-                                        <Button variant="link" href="/GejalaEdit">
+                                        <Button variant="link" href="/EditKerusakan">
                                             <FontAwesomeIcon icon={faPencil} className={style.icon}/>
                                         </Button>
                                         <Button variant="link" value={data.id} onClick={hapusData}>

@@ -10,3 +10,5 @@ export { default as HasilDiagnosa} from "./HasilDiagnosa";
 export { default as TambahDataGejala } from "./TambahDataGejala";
 export { default as TambahDataKerusakan } from "./TambahDataKerusakan";
 export { default as TambahBasisPengetahuan } from "./TambahBasisPengetahuan";
+export { default as EditGejala } from "./EditGejala";
+export { default as EditKerusakan } from "./EditKerusakan";

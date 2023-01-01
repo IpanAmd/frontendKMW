@@ -34,7 +34,7 @@ function App() {
               <Route path="TambahDataKerusakan" element={<TambahDataKerusakan/>}/> 
               <Route path="TambahBasisPengetahuan" element={<TambahBasisPengetahuan/>}/>
               <Route path="EditGejala/:id" element={<EditGejala/>}/>
-              <Route path="EditKerusakan" element={<EditKerusakan/>}/>
+              <Route path="EditKerusakan/:id" element={<EditKerusakan/>}/>
 
           </Routes>
         </BrowserRouter>

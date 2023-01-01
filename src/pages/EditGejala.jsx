@@ -34,8 +34,8 @@ function EditGejala() {
             },
         })
         .then((response) => {
-            setCode(response.data.data.code);
-            setName(response.data.data.name);
+            setCode(response.data.data?.code);
+            setName(response.data.data?.name);
             navigate("/gejala");
         })
         .catch((error) => {

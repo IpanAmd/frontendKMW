@@ -31,6 +31,7 @@ function BasisPengetahuan() {
                                 <td className={style.thSatu}>No</td>
                                 <td className={style.thTiga}>Nama Kerusakan</td>
                                 <td className={style.thTiga}>Gejala Kerusakan</td>
+                                <td className={style.thDua}>Nilai MB</td>
                                 <td className={style.thDua}>Aksi</td>
                             </tr>
                         </thead>
@@ -39,6 +40,7 @@ function BasisPengetahuan() {
                                 <td className={style.tdAksi}>1</td>
                                 <td>Kerusakan 1</td>
                                 <td>Gejala 1</td>
+                                <td className={style.tdAksi}>Nilai MB</td>
                                 <td className={style.tdAksi}>
                                     <Button variant="link" href="/GejalaEdit">
                                         <FontAwesomeIcon icon={faPencil} className={style.icon}/>

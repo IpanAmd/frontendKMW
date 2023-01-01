@@ -2,6 +2,7 @@ import style from "./kerusakan.module.css";
 import {Container, Button, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {Header, Footer} from "../components";
 import background from "../asset/bg1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -71,21 +72,23 @@ function Kerusakan() {
                             {fault.map((data, index) => {
                                 return (
                                     <tr key={data.id}>
-                                    <td className={style.tdAksi}>{index+1}</td>
+                                        <td className={style.tdAksi}>{index+1}</td>
 
-                                    <td className={style.tdAksi}>{data.code}</td>
+                                        <td className={style.tdAksi}>{data.code}</td>
 
-                                    <td>{data.name}</td>
+                                        <td>{data.name}</td>
 
-                                    <td>{data.solution}</td>
-                                    <td className={style.tdAksi}>
-                                        <Button variant="link" href="/EditKerusakan">
-                                            <FontAwesomeIcon icon={faPencil} className={style.icon}/>
-                                        </Button>
-                                        <Button variant="link" value={data.id} onClick={hapusData}>
-                                            <FontAwesomeIcon icon={faTrash} className={style.icon}/>
-                                        </Button>                                    
-                                    </td>
+                                        <td>{data.solution}</td>
+                                        <td className={style.tdAksi}>
+                                            <Link to={`/EditKerusakan/${data.id}`}>
+                                                <Button variant="link" href="/EditKerusakan">
+                                                    <FontAwesomeIcon icon={faPencil} className={style.icon}/>
+                                                </Button>
+                                            </Link>
+                                            <Button variant="link" value={data.id} onClick={hapusData}>
+                                                <FontAwesomeIcon icon={faTrash} className={style.icon}/>
+                                            </Button>                                    
+                                        </td>
                                     </tr>
                                 )
                             })}

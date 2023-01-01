@@ -25,6 +25,11 @@ function TambahBasisPengetahuan() {
                             <Form.Control type="text"/>
                         </Form.Group>
 
+                        <Form.Group className="mb-3">
+                            <Form.Label>Nilai MB</Form.Label>
+                            <Form.Control type="number"/>
+                        </Form.Group>
+
                         <div className={style.button}>
                             <Button variant="warning" href="/BasisPengetahuan" className="mx-3" type="submit">
                                 KEMBALI

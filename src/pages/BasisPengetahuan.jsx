@@ -1,11 +1,58 @@
 import style from "./basisPengetahuan.module.css";
 import {Container, Button, Table } from "react-bootstrap";
+import {useState, useEffect} from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import {Header, Footer} from "../components";
 import background from "../asset/bg1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import swal from "sweetalert";
 
 function BasisPengetahuan() {
+    const [kb, setKb] = useState([]);
+    const tampilData = () => {
+        axios.get(`http://localhost:8000/api/v1/knowledge-base`)
+        .then((response) => {
+            setKb(response.data.data)
+        }) .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const hapusData = (e) => {
+        const id = e.currentTarget.value;
+        swal({
+            title: "Perhatian!",
+            text: `Apa anda yakin ingin menghapus data basis pengetahuan?`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willEnd) => {
+            if (willEnd) {
+                axios.delete(`http://localhost:8000/api/v1/knowledge-base/${id}`,
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("token"),
+                    },
+                })
+                .then (() => {
+                    window.location.reload()
+                });
+                swal("Data basis pengetahuan berhasil dihapus", {
+                icon: "success",
+              });
+            } else {
+              swal("Ah plinplan lu");
+            }
+        });
+    }
+
+    useEffect(() => {
+        tampilData();
+    }, [])
+
+
     return (
         <>
             <Header />
@@ -36,20 +83,28 @@ function BasisPengetahuan() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className={style.tdAksi}>1</td>
-                                <td>Kerusakan 1</td>
-                                <td>Gejala 1</td>
-                                <td className={style.tdAksi}>Nilai MB</td>
-                                <td className={style.tdAksi}>
-                                    <Button variant="link" href="/GejalaEdit">
-                                        <FontAwesomeIcon icon={faPencil} className={style.icon}/>
-                                    </Button>
-                                    <Button variant="link">
-                                        <FontAwesomeIcon icon={faTrash} className={style.icon}/>
-                                    </Button>    
-                                </td>
-                            </tr>
+                            {kb.map((data, index) => {
+                                return (
+                                <tr key={data.id}>
+                                    {/* fungsi tanda tanya ? untuk ngebaca jika elemen tersebut bernilai null */}
+                                    <td className={style.tdAksi}>{index+1}</td>
+                                    <td>{data.Fault?.code} - {data.Fault?.name}</td>
+                                    <td>{data.Indication?.code} - {data.Indication?.name}</td>
+                                    <td className={style.tdAksi}>{data.mb}</td>
+                                    <td className={style.tdAksi}>
+                                        <Link to={`/EditBasisPengetahuan/${data.id}`}>
+                                            <Button variant="link">
+                                                <FontAwesomeIcon icon={faPencil} className={style.icon}/>
+                                            </Button>
+                                        </Link>
+                                        <Button variant="link" value={data.id} onClick={hapusData}>
+                                                <FontAwesomeIcon icon={faTrash} className={style.icon}/>
+                                        </Button>   
+                                    </td>
+                                </tr>
+                                )
+                            })}
+                            
                         </tbody>   
                     </Table>
                 </Container>

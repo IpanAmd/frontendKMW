@@ -7,6 +7,7 @@ import {Header, Footer} from "../components";
 import background from "../asset/bg1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import swal from "sweetalert";
 
 function Gejala() {
 
@@ -24,15 +25,30 @@ function Gejala() {
 
     const hapusData = (e) => {
         const id = e.currentTarget.value;
-        axios.delete(`http://localhost:8000/api/v1/indication/${id}`,
-        {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-        })
-        .then (() => {
-            window.location.reload()
-        })
+        swal({
+            title: "Perhatian!",
+            text: `Apa anda yakin ingin menghapus data gejala?`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willEnd) => {
+            if (willEnd) {
+                axios.delete(`http://localhost:8000/api/v1/indication/${id}`,
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("token"),
+                    },
+                })
+                .then (() => {
+                    window.location.reload()
+                });
+                swal("Data basis pengetahuan berhasil dihapus", {
+                icon: "success",
+              });
+            } else {
+              swal("Ah plinplan lu");
+            }
+        });
     }
 
     useEffect(() => {

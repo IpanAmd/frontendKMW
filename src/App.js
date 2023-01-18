@@ -17,6 +17,7 @@ import {
   EditGejala,
   EditKerusakan,
   EditBasisPengetahuan,
+  InfoAkun,
 } from "./pages";
 import ProtectedToken from "./auth/ProtectedToken";
 import CheckClient from "./auth/CheckClient";
@@ -30,6 +31,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route
+            path="InfoAkun"
+            element={
+              <ProtectedToken>
+                <InfoAkun />
+              </ProtectedToken>
+            }
+          />
           <Route
             path="gejala"
             element={

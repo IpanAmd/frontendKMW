@@ -13,3 +13,4 @@ export { default as TambahBasisPengetahuan } from "./TambahBasisPengetahuan";
 export { default as EditGejala } from "./EditGejala";
 export { default as EditKerusakan } from "./EditKerusakan";
 export { default as EditBasisPengetahuan } from "./EditBasisPengetahuan";
+export { default as InfoAkun } from "./InfoAkun";

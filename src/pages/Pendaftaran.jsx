@@ -42,6 +42,7 @@ function Pendaftaran() {
 
         // menyimpan data client id di localstorage
         localStorage.setItem("client", response.data.data.id);
+        localStorage.setItem("consultation", true);
 
         // pindah halaman
         navigate("/Diagnosa");

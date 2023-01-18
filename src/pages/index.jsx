@@ -1,12 +1,12 @@
-export { default as Login} from "./Login";
+export { default as Login } from "./Login";
 export { default as Home } from "./Home";
 export { default as Gejala } from "./Gejala";
 export { default as Kerusakan } from "./Kerusakan";
 export { default as BasisPengetahuan } from "./BasisPengetahuan";
 export { default as PetunjukPenggunaan } from "./PetunjukPenggunaan";
 export { default as Pendaftaran } from "./Pendaftaran";
-export { default as Diagnosa } from "./Dignosa";
-export { default as HasilDiagnosa} from "./HasilDiagnosa";
+export { default as Diagnosa } from "./Diagnosa";
+export { default as HasilDiagnosa } from "./HasilDiagnosa";
 export { default as TambahDataGejala } from "./TambahDataGejala";
 export { default as TambahDataKerusakan } from "./TambahDataKerusakan";
 export { default as TambahBasisPengetahuan } from "./TambahBasisPengetahuan";

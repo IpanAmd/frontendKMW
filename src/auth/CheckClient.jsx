@@ -12,8 +12,8 @@ function CheckClient({ children }) {
     if (client != null) {
       swal({
         title: "Perhatian!",
-        text: "Maaf, Anda belum menyelesaikan diagnosa",
-        icon: "warning",
+        text: "Anda telah mengisi form pendaftaran",
+        icon: "success",
         button: "Mengerti",
       });
       return navigate("/Diagnosa");
@@ -24,5 +24,6 @@ function CheckClient({ children }) {
   useEffect(() => {
     load();
   }, []);
+  return children;
 }
 export default CheckClient;

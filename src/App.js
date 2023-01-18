@@ -20,6 +20,8 @@ import {
 } from "./pages";
 import ProtectedToken from "./auth/ProtectedToken";
 import CheckClient from "./auth/CheckClient";
+import CheckConsultation from "./auth/CheckConsultation";
+import CheckResult from "./auth/CheckResult";
 
 function App() {
   return (
@@ -61,8 +63,22 @@ function App() {
               </CheckClient>
             }
           />
-          <Route path="Diagnosa" element={<Diagnosa />} />
-          <Route path="HasilDiagnosa" element={<HasilDiagnosa />} />
+          <Route
+            path="Diagnosa"
+            element={
+              <CheckConsultation>
+                <Diagnosa />
+              </CheckConsultation>
+            }
+          />
+          <Route
+            path="HasilDiagnosa"
+            element={
+              <CheckResult>
+                <HasilDiagnosa />
+              </CheckResult>
+            }
+          />
           <Route path="TambahDataGejala" element={<TambahDataGejala />} />
           <Route path="TambahDataKerusakan" element={<TambahDataKerusakan />} />
           <Route

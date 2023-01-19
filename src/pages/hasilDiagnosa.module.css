@@ -43,3 +43,15 @@
   font-weight: bold;
   padding-bottom: 30px;
 }
+
+.listNone {
+  list-style: none !important;
+}
+.sizeDiv {
+  width: 157px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0%;
+  padding: 0%;
+}

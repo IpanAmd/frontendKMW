@@ -18,6 +18,7 @@ import {
   EditKerusakan,
   EditBasisPengetahuan,
   InfoAkun,
+  UbahKataSandi,
 } from "./pages";
 import ProtectedToken from "./auth/ProtectedToken";
 import CheckClient from "./auth/CheckClient";
@@ -36,6 +37,14 @@ function App() {
             element={
               <ProtectedToken>
                 <InfoAkun />
+              </ProtectedToken>
+            }
+          />
+          <Route
+            path="UbahKataSandi"
+            element={
+              <ProtectedToken>
+                <UbahKataSandi />
               </ProtectedToken>
             }
           />

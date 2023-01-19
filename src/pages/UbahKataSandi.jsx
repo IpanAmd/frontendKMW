@@ -8,33 +8,22 @@ import background from "../asset/bg1.png";
 import swal from "sweetalert";
 import { ToastContainer, toast } from "react-toastify";
 
-function InfoAkun() {
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
+function UbahKataSandi() {
+  const [olds, setOlds] = useState("");
+  const [news, setNews] = useState("");
+  const [confirms, setConfirms] = useState("");
 
   const navigate = useNavigate();
-
-  const dataAdmin = () => {
-    axios
-      .get(`http://localhost:8000/api/v1/auth/admin`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        setName(response.data.data.name);
-        setUsername(response.data.data.username);
-      });
-  };
 
   const ubahData = (e) => {
     e.preventDefault();
     const data = {
-      name: name,
-      username: username,
+      old_password: olds,
+      new_password: news,
+      confirm_password: confirms,
     };
     axios
-      .put(`http://localhost:8000/api/v1/auth/admin`, data, {
+      .put(`http://localhost:8000/api/v1/auth/admin/password`, data, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -42,21 +31,27 @@ function InfoAkun() {
       .then(() => {
         swal({
           title: "Berhasil!",
-          text: "Info akun berhasil diubah!",
+          text: "Kata Sandi berhasil diubah!",
           icon: "success",
           button: "Oke",
         });
+        navigate("/");
       })
-      .catch(() => {
-        toast("Isi semua kolom dengan benar!", {
-          type: "error",
-        });
+      .catch((error) => {
+        console.log(error);
+        if (Array.isArray(error.response.data.message)) {
+          error.response.data.message.forEach((err) => {
+            toast(err, {
+              type: "error",
+            });
+          });
+        } else {
+          toast(error.response.data.message, {
+            type: "error",
+          });
+        }
       });
   };
-
-  useEffect(() => {
-    dataAdmin();
-  }, []);
 
   return (
     <>
@@ -69,24 +64,36 @@ function InfoAkun() {
       >
         <Container className={style.container}>
           <section className={style.section}>
-            <h3>INFO DATA ADMIN</h3>
+            <h3>UBAH KATA SANDI</h3>
           </section>
           <Form className={style.main}>
             <Form.Group className="mb-3">
-              <Form.Label>Nama Lengkap</Form.Label>
+              <Form.Label>Kata Sandi Lama</Form.Label>
               <Form.Control
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                type="password"
+                placeholder="masukkan kata sandi lama"
+                value={olds}
+                onChange={(e) => setOlds(e.target.value)}
                 required
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>Kata Sandi Baru</Form.Label>
               <Form.Control
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="password"
+                placeholder="masukkan kata sandi baru"
+                value={news}
+                onChange={(e) => setNews(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Konfirmasi Kata Sandi</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="konfirmasi kata sandi baru"
+                value={confirms}
+                onChange={(e) => setConfirms(e.target.value)}
                 required
               />
             </Form.Group>
@@ -114,4 +121,4 @@ function InfoAkun() {
     </>
   );
 }
-export default InfoAkun;
+export default UbahKataSandi;

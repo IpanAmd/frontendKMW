@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import style from "./diagnosa.module.css";
-import { Container, Form, Button, Col, Row, Stack } from "react-bootstrap";
+import { Container, Form, Button, Col, Row } from "react-bootstrap";
 import { Header, Footer } from "../components";
 import background from "../asset/bg1.png";
 import swal from "sweetalert";
@@ -11,11 +11,12 @@ function Diagnosa() {
   // menampung data array
   const [indications, setIndications] = useState([]);
   const [consultations, setConsultations] = useState([]);
+  const [faults, setFaults] = useState([]);
 
   // menampung input data dari frontend
   const [selectedIndication, setSelectedIndication] = useState();
+  const [selectedFault, setSelectedFault] = useState("");
   const [cfUser, setCfUser] = useState(0);
-  const [fault, setFault] = useState();
 
   // menampung data kondisi
   const [status, setStatus] = useState("process");
@@ -25,7 +26,7 @@ function Diagnosa() {
   const clientId = localStorage.getItem("client");
 
   // menampung data kerusakan jika diagnosa tidak sampai akhir
-  const faultId = [];
+  const collectFault = [];
 
   const navigate = useNavigate();
 
@@ -59,6 +60,12 @@ function Diagnosa() {
       setIndications(response.data.data);
     });
   };
+  // mendapatkan data kerusakan
+  const dataKerusakan = () => {
+    axios.get(`http://localhost:8000/api/v1/fault/`).then((response) => {
+      setFaults(response.data.data);
+    });
+  };
 
   // mendapatkan data konsultasi
   const dataKonsultasi = () => {
@@ -82,7 +89,6 @@ function Diagnosa() {
   // mencari kode urutan terakhir dari codeArray
   const lastCode = codeArray.slice(-1);
 
-  console.log(codeArray);
   // aksi tombol lanjut
   const tambahData = (e) => {
     e.preventDefault();
@@ -101,7 +107,7 @@ function Diagnosa() {
         })
         .catch(() => {
           // jika belum memilih gejala awal
-          if (faultId.length == 0) {
+          if (collectFault.length == 0) {
             swal("Pilih gejala awal untuk melajutkan diagnosa");
           }
           // jika sudah memilih gejala awal
@@ -114,7 +120,15 @@ function Diagnosa() {
               dangerMode: true,
             }).then((willEnd) => {
               if (willEnd) {
-                // melakukan looping data kerusakan dari faultId
+                const faultId = [];
+                faults.map((data) => {
+                  collectFault.map((kode) => {
+                    if (data.code == kode) {
+                      faultId.push(data.id);
+                    }
+                  });
+                });
+                // melakukan looping data kerusakan dari collectFault
                 faultId.map((id) => {
                   const result = {
                     client_id: clientId,
@@ -144,9 +158,15 @@ function Diagnosa() {
         .post(`http://localhost:8000/api/v1/consultation/create`, data)
         .then((response) => {
           setSelectedIndication(response.data.data.indication_id);
+          let faultId = 0;
+          faults.map((data) => {
+            if (data.code == selectedFault) {
+              faultId = data.id;
+            }
+          });
           const result = {
             client_id: clientId,
-            fault_id: fault,
+            fault_id: faultId,
           };
           // membuat data hasil kerusakan
           axios
@@ -302,8 +322,8 @@ function Diagnosa() {
                   const selected = e.target.value;
                   setSelectedIndication(selected);
                   setCheck(selected);
-                  setFault(fault);
                   setStatus(status);
+                  setSelectedFault(fault);
                 }}
               />
             </div>
@@ -316,6 +336,7 @@ function Diagnosa() {
 
   useEffect(() => {
     dataGejala();
+    dataKerusakan();
     dataKonsultasi();
   }, []);
 
@@ -371,7 +392,7 @@ function Diagnosa() {
 
                     if (arrayLength == 1) {
                       if (firstIndex == "G01") {
-                        faultId.push(1);
+                        collectFault.push("K01");
                         return (
                           <>
                             {indications.map((data) => {
@@ -382,10 +403,10 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G03") {
-                        faultId.push(8);
-                        faultId.push(14);
-                        faultId.push(16);
-                        faultId.push(17);
+                        collectFault.push("K08");
+                        collectFault.push("K014");
+                        collectFault.push("K016");
+                        collectFault.push("K017");
                         return (
                           <>
                             {indications.map((data) => {
@@ -400,12 +421,12 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G08") {
-                        faultId.push(6);
-                        faultId.push(7);
-                        faultId.push(20);
-                        faultId.push(9);
-                        faultId.push(12);
-                        faultId.push(13);
+                        collectFault.push("K06");
+                        collectFault.push("K07");
+                        collectFault.push("K020");
+                        collectFault.push("K09");
+                        collectFault.push("K012");
+                        collectFault.push("K013");
                         return (
                           <>
                             {indications.map((data) => {
@@ -421,11 +442,11 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G010") {
-                        faultId.push(15);
-                        faultId.push(4);
-                        faultId.push(11);
-                        faultId.push(10);
-                        faultId.push(21);
+                        collectFault.push("K015");
+                        collectFault.push("K04");
+                        collectFault.push("K011");
+                        collectFault.push("K010");
+                        collectFault.push("K021");
                         return (
                           <>
                             {indications.map((data) => {
@@ -436,7 +457,7 @@ function Diagnosa() {
                                 data.code == "G06"
                               ) {
                                 if (data.code == "G08") {
-                                  const fault = 10;
+                                  const fault = "K010";
                                   const status = "end";
                                   return (
                                     <>{daftarPilihan(data, fault, status)}</>
@@ -449,9 +470,9 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G038") {
-                        faultId.push(18);
-                        faultId.push(22);
-                        faultId.push(19);
+                        collectFault.push("K018");
+                        collectFault.push("K022");
+                        collectFault.push("K019");
                         return (
                           <>
                             {indications.map((data) => {
@@ -461,19 +482,19 @@ function Diagnosa() {
                                 data.code == "G013"
                               ) {
                                 if (data.code == "G039") {
-                                  const fault = 18;
+                                  const fault = "K018";
                                   const status = "end";
                                   return (
                                     <>{daftarPilihan(data, fault, status)}</>
                                   );
                                 } else if (data.code == "G041") {
-                                  const fault = 22;
+                                  const fault = "K022";
                                   const status = "end";
                                   return (
                                     <>{daftarPilihan(data, fault, status)}</>
                                   );
                                 } else if (data.code == "G013") {
-                                  const fault = 19;
+                                  const fault = "K019";
                                   const status = "end";
                                   return (
                                     <>{daftarPilihan(data, fault, status)}</>
@@ -486,9 +507,9 @@ function Diagnosa() {
                       }
                     } else if (arrayLength == 2) {
                       if (firstIndex == "G01" && secondIndex == "G03") {
-                        faultId.push(5);
-                        faultId.push(2);
-                        faultId.push(3);
+                        collectFault.push("K05");
+                        collectFault.push("K02");
+                        collectFault.push("K03");
                         return (
                           <>
                             {indications.map((data) => {
@@ -503,8 +524,8 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G03" && secondIndex == "G08") {
-                        faultId.push(8);
-                        faultId.push(14);
+                        collectFault.push("K08");
+                        collectFault.push("K014");
                         return (
                           <>
                             {indications.map((data) => {
@@ -515,7 +536,7 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G03" && secondIndex == "G012") {
-                        faultId.push(16);
+                        collectFault.push("K016");
                         return (
                           <>
                             {indications.map((data) => {
@@ -526,7 +547,7 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G03" && secondIndex == "G037") {
-                        faultId.push(17);
+                        collectFault.push("K017");
                         return (
                           <>
                             {indications.map((data) => {
@@ -537,8 +558,8 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G08" && secondIndex == "G019") {
-                        faultId.push(6);
-                        faultId.push(7);
+                        collectFault.push("K06");
+                        collectFault.push("K07");
                         return (
                           <>
                             {indications.map((data) => {
@@ -549,7 +570,7 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G08" && secondIndex == "G040") {
-                        faultId.push(20);
+                        collectFault.push("K020");
                         return (
                           <>
                             {indications.map((data) => {
@@ -560,7 +581,7 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G08" && secondIndex == "G022") {
-                        faultId.push(9);
+                        collectFault.push("K09");
                         return (
                           <>
                             {indications.map((data) => {
@@ -571,14 +592,14 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G08" && secondIndex == "G028") {
-                        faultId.push(12);
-                        faultId.push(13);
+                        collectFault.push("K012");
+                        collectFault.push("K013");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G010" || data.code == "G029") {
                                 if (data.code == "G010") {
-                                  const fault = 12;
+                                  const fault = "K012";
                                   const status = "end";
                                   return (
                                     <>{daftarPilihan(data, fault, status)}</>
@@ -594,7 +615,7 @@ function Diagnosa() {
                         firstIndex == "G010" &&
                         secondIndex == "G012"
                       ) {
-                        faultId.push(15);
+                        collectFault.push("K015");
                         return (
                           <>
                             {indications.map((data) => {
@@ -605,14 +626,14 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G010" && secondIndex == "G07") {
-                        faultId.push(4);
-                        faultId.push(11);
+                        collectFault.push("K04");
+                        collectFault.push("K011");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G011" || data.code == "G08") {
                                 if (data.code == "G011") {
-                                  const fault = 4;
+                                  const fault = "K04";
                                   const status = "end";
                                   return (
                                     <>{daftarPilihan(data, fault, status)}</>
@@ -625,12 +646,12 @@ function Diagnosa() {
                           </>
                         );
                       } else if (firstIndex == "G010" && secondIndex == "G06") {
-                        faultId.push(21);
+                        collectFault.push("K021");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G018") {
-                                const fault = 21;
+                                const fault = "K021";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -646,7 +667,7 @@ function Diagnosa() {
                         secondIndex == "G03" &&
                         thirdIndex == "G012"
                       ) {
-                        faultId.push(5);
+                        collectFault.push("K05");
                         return (
                           <>
                             {indications.map((data) => {
@@ -661,7 +682,7 @@ function Diagnosa() {
                         secondIndex == "G03" &&
                         thirdIndex == "G02"
                       ) {
-                        faultId.push(2);
+                        collectFault.push("K02");
                         return (
                           <>
                             {indications.map((data) => {
@@ -676,7 +697,7 @@ function Diagnosa() {
                         secondIndex == "G03" &&
                         thirdIndex == "G06"
                       ) {
-                        faultId.push(3);
+                        collectFault.push("K03");
                         return (
                           <>
                             {indications.map((data) => {
@@ -691,8 +712,8 @@ function Diagnosa() {
                         secondIndex == "G08" &&
                         thirdIndex == "G07"
                       ) {
-                        faultId.push(8);
-                        faultId.push(14);
+                        collectFault.push("K08");
+                        collectFault.push("K014");
                         return (
                           <>
                             {indications.map((data) => {
@@ -707,12 +728,12 @@ function Diagnosa() {
                         secondIndex == "G012" &&
                         thirdIndex == "G06"
                       ) {
-                        faultId.push(16);
+                        collectFault.push("K016");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G04") {
-                                const fault = 16;
+                                const fault = "K016";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -726,12 +747,12 @@ function Diagnosa() {
                         secondIndex == "G037" &&
                         thirdIndex == "G041"
                       ) {
-                        faultId.push(17);
+                        collectFault.push("K017");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G038") {
-                                const fault = 17;
+                                const fault = "K017";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -745,7 +766,7 @@ function Diagnosa() {
                         secondIndex == "G019" &&
                         thirdIndex == "G014"
                       ) {
-                        faultId.push(6);
+                        collectFault.push("K06");
                         return (
                           <>
                             {indications.map((data) => {
@@ -760,12 +781,12 @@ function Diagnosa() {
                         secondIndex == "G019" &&
                         thirdIndex == "G018"
                       ) {
-                        faultId.push(7);
+                        collectFault.push("K07");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G020") {
-                                const fault = 7;
+                                const fault = "K07";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -779,7 +800,7 @@ function Diagnosa() {
                         secondIndex == "G040" &&
                         thirdIndex == "G07"
                       ) {
-                        faultId.push(20);
+                        collectFault.push("K020");
                         return (
                           <>
                             {indications.map((data) => {
@@ -794,7 +815,7 @@ function Diagnosa() {
                         secondIndex == "G022" &&
                         thirdIndex == "G023"
                       ) {
-                        faultId.push(9);
+                        collectFault.push("K09");
                         return (
                           <>
                             {indications.map((data) => {
@@ -809,7 +830,7 @@ function Diagnosa() {
                         secondIndex == "G028" &&
                         thirdIndex == "G029"
                       ) {
-                        faultId.push(13);
+                        collectFault.push("K013");
                         return (
                           <>
                             {indications.map((data) => {
@@ -824,7 +845,7 @@ function Diagnosa() {
                         secondIndex == "G012" &&
                         thirdIndex == "G036"
                       ) {
-                        faultId.push(15);
+                        collectFault.push("K015");
                         return (
                           <>
                             {indications.map((data) => {
@@ -839,12 +860,12 @@ function Diagnosa() {
                         secondIndex == "G07" &&
                         thirdIndex == "G08"
                       ) {
-                        faultId.push(11);
+                        collectFault.push("K011");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G027") {
-                                const fault = 11;
+                                const fault = "K011";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -861,12 +882,12 @@ function Diagnosa() {
                         thirdIndex == "G012" &&
                         fourthIndex == "G013"
                       ) {
-                        faultId.push(5);
+                        collectFault.push("K05");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G010") {
-                                const fault = 5;
+                                const fault = "K05";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -881,12 +902,12 @@ function Diagnosa() {
                         thirdIndex == "G02" &&
                         fourthIndex == "G05"
                       ) {
-                        faultId.push(2);
+                        collectFault.push("K02");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G04") {
-                                const fault = 2;
+                                const fault = "K02";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -901,12 +922,12 @@ function Diagnosa() {
                         thirdIndex == "G06" &&
                         fourthIndex == "G09"
                       ) {
-                        faultId.push(3);
+                        collectFault.push("K03");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G07") {
-                                const fault = 3;
+                                const fault = "K03";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -921,14 +942,14 @@ function Diagnosa() {
                         thirdIndex == "G07" &&
                         fourthIndex == "G010"
                       ) {
-                        faultId.push(8);
-                        faultId.push(14);
+                        collectFault.push("K08");
+                        collectFault.push("K014");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G021" || data.code == "G032") {
                                 if (data.code == "G032") {
-                                  const fault = 14;
+                                  const fault = "K014";
                                   const status = "end";
                                   return (
                                     <>{daftarPilihan(data, fault, status)}</>
@@ -946,7 +967,7 @@ function Diagnosa() {
                         thirdIndex == "G014" &&
                         fourthIndex == "G016"
                       ) {
-                        faultId.push(6);
+                        collectFault.push("K06");
                         return (
                           <>
                             {indications.map((data) => {
@@ -962,12 +983,12 @@ function Diagnosa() {
                         thirdIndex == "G07" &&
                         fourthIndex == "G010"
                       ) {
-                        faultId.push(20);
+                        collectFault.push("K020");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G038") {
-                                const fault = 20;
+                                const fault = "K020";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -982,12 +1003,12 @@ function Diagnosa() {
                         thirdIndex == "G023" &&
                         fourthIndex == "G024"
                       ) {
-                        faultId.push(9);
+                        collectFault.push("K09");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G026") {
-                                const fault = 9;
+                                const fault = "K09";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -1002,12 +1023,12 @@ function Diagnosa() {
                         thirdIndex == "G029" &&
                         fourthIndex == "G030"
                       ) {
-                        faultId.push(13);
+                        collectFault.push("K013");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G031") {
-                                const fault = 13;
+                                const fault = "K013";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -1022,7 +1043,7 @@ function Diagnosa() {
                         thirdIndex == "G036" &&
                         fourthIndex == "G033"
                       ) {
-                        faultId.push(15);
+                        collectFault.push("K015");
                         return (
                           <>
                             {indications.map((data) => {
@@ -1041,12 +1062,12 @@ function Diagnosa() {
                         fourthIndex == "G010" &&
                         fifthIndex == "G021"
                       ) {
-                        faultId.push(8);
+                        collectFault.push("K08");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G025") {
-                                const fault = 8;
+                                const fault = "K08";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -1062,7 +1083,7 @@ function Diagnosa() {
                         fourthIndex == "G016" &&
                         fifthIndex == "G07"
                       ) {
-                        faultId.push(6);
+                        collectFault.push("K06");
                         return (
                           <>
                             {indications.map((data) => {
@@ -1079,12 +1100,12 @@ function Diagnosa() {
                         fourthIndex == "G033" &&
                         fifthIndex == "G034"
                       ) {
-                        faultId.push(15);
+                        collectFault.push("K015");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G035") {
-                                const fault = 15;
+                                const fault = "K015";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>
@@ -1103,12 +1124,12 @@ function Diagnosa() {
                         fifthIndex == "G07" &&
                         sixthIndex == "G015"
                       ) {
-                        faultId.push(6);
+                        collectFault.push("K06");
                         return (
                           <>
                             {indications.map((data) => {
                               if (data.code == "G017") {
-                                const fault = 6;
+                                const fault = "K06";
                                 const status = "end";
                                 return (
                                   <>{daftarPilihan(data, fault, status)}</>

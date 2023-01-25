@@ -18,12 +18,15 @@ function PetunjukPenggunaan () {
 
                     <main className={style.list}>
                         <ol class="list-group-numbered">
-                            <li class="list-group-item" bgTransparent>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</li>
-                            <li class="list-group-item" bgTransparent>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                            <li class="list-group-item" bgTransparent>Lorem ipsum dolor, sit amet consectetur adipisicing.</li>
-                            <li class="list-group-item" bgTransparent>Lorem ipsum dolor, sit amet consectetur adipisicing.</li>
-                            <li class="list-group-item" bgTransparent>Lorem ipsum dolor, sit amet consectetur adipisicing.</li>
-                            <li class="list-group-item" bgTransparent>Lorem ipsum dolor, sit amet consectetur adipisicing.</li>
+                            <li class="list-group-item" bgTransparent>Masuk Halaman Utama</li>
+                            <li class="list-group-item" bgTransparent>Baca petunjuk penggunaan dengan meng-klik tombol "petunjuk penggunaan"</li>
+                            <li class="list-group-item" bgTransparent>Lakukan diagnosa dengan meng-klik tombol "mulai diagnosa"</li>
+                            <li class="list-group-item" bgTransparent>Isi form registrasi user sebelum melanjutkan ke halaman diagnosa</li>
+                            <li class="list-group-item" bgTransparent>Klik tombol "simpan dan mulai" untuk menyimpan data registrasi dan melakukan proses diagnosa</li>
+                            <li class="list-group-item" bgTransparent>Pilih gejala kerusakan yang sesuai dan pilih tingkat keyakinan terhadap gejala kerusakan yang dialami</li>
+                            <li class="list-group-item" bgTransparent>Klik tombol lanjut untuk terus melakukan diagnosa dan melihat hasil diagnosa</li>
+                            <li class="list-group-item" bgTransparent>Hasil diagnosa akan muncul setelah anda menyelesaikan proses diagnosa</li>
+                            <li class="list-group-item" bgTransparent>Klik tombol "selesai"</li>
                         </ol>
                     </main>
 

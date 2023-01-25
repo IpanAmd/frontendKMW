@@ -61,7 +61,7 @@ function Gejala() {
             {/* Container start */}
             <Container fluid className={style.containerFluid} style={{backgroundImage: `url(${background})`}}>
                 <Container className={style.container}>
-                    <section className={style.section}>
+                    <section className={style.section}> 
                         <h3>GEJALA KERUSAKAN</h3>
                     </section>
 
@@ -93,11 +93,11 @@ function Gejala() {
                                         <td className={style.tdAksi}>
                                             <Link to={`/EditGejala/${data.id}`}>
                                                 <Button variant="link">
-                                                    <FontAwesomeIcon icon={faPencil} className={style.icon}/>
+                                                    <FontAwesomeIcon icon={faPencil} className={style.icon} title="Edit"/>
                                                 </Button>
                                             </Link>
                                             <Button variant="link" value={data.id} onClick={hapusData}>
-                                                <FontAwesomeIcon icon={faTrash} className={style.icon}/>
+                                                <FontAwesomeIcon icon={faTrash} className={style.icon} title="Hapus"/>
                                             </Button>   
                                         </td>
                                     </tr>     

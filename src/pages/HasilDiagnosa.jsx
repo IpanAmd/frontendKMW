@@ -143,7 +143,7 @@ function HasilDiagnosa() {
         result = value;
       }
     });
-    obj["cf"] = (Math.round(result * 100) / 100) * 100;
+    obj["cf"] = (Math.round(result * 100) / 100);
     obj["fault"] = fault.name;
     obj["solution"] = fault.solution;
     hasilAkhir.push(obj);
@@ -273,7 +273,7 @@ function HasilDiagnosa() {
                     hasilAkhir.map((data, index) => {
                       return (
                         <label className={style.listNone} key={index}>
-                          &nbsp;{data.cf}%
+                          &nbsp;{data.cf}
                         </label>
                       );
                     }))
@@ -291,6 +291,13 @@ function HasilDiagnosa() {
                   }))
                 }
               </ol>
+            </div>
+            <div id="Catatan">
+              <p className={style.catatan}>CATATAN</p>
+              <ul>
+                <li>Nilai kepastian dari certainty factor bernilai antara -1 sampai 1, jika hasil akhir bernial -1 maka "tidak yakin" jika bernilai 1 maka "sangat yakin"</li>
+                <li>Untuk pengguna awam silahkan konsultasikan dengan montir kepercayaan anda untuk hasil yang lebih akurat</li>
+              </ul>
             </div>
           </main>
           <div className={style.button}>

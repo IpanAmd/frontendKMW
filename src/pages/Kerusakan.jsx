@@ -103,11 +103,11 @@ function Kerusakan() {
                                         <td className={style.tdAksi}>
                                             <Link to={`/EditKerusakan/${data.id}`}>
                                                 <Button variant="link" href="/EditKerusakan">
-                                                    <FontAwesomeIcon icon={faPencil} className={style.icon}/>
+                                                    <FontAwesomeIcon icon={faPencil} className={style.icon} title="Edit"/>
                                                 </Button>
                                             </Link>
                                             <Button variant="link" value={data.id} onClick={hapusData}>
-                                                <FontAwesomeIcon icon={faTrash} className={style.icon}/>
+                                                <FontAwesomeIcon icon={faTrash} className={style.icon} title="Hapus"/>
                                             </Button>                                    
                                         </td>
                                     </tr>

@@ -11,7 +11,8 @@ function TambahDataKerusakan() {
     const [name, setName] = useState("");
     const [solution, setSolution] = useState("");
     const navigate = useNavigate();
-    const tambahData = () => {
+    const tambahData = (e) => {
+        e.preventDefault();
         const data = {
             code: code,
             name: name,

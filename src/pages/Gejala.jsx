@@ -46,7 +46,7 @@ function Gejala() {
                 icon: "success",
               });
             } else {
-              swal("Ah plinplan lu");
+              swal("Data anda tetap aman !");
             }
         });
     }

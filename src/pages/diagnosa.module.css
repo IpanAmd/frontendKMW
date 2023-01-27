@@ -1,44 +1,44 @@
 .containerFluid {
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
 }
 
 .container {
-    min-height: 520px;
-    background-color: rgba(224, 245, 245, 0.8);
-    margin: 10px auto;
-    border-radius: 10px;
-    align-content: center;
+  min-height: 520px;
+  background-color: rgba(224, 245, 245, 0.8);
+  margin: 10px auto;
+  border-radius: 10px;
+  align-content: center;
 }
 
 .section {
-    font-weight: bold;
-    text-align: center;
-    padding-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
 }
 
 .section h3 {
-    margin: 20px auto;
+  margin: 20px auto;
 }
 
 .main {
-    padding: 10px 70px;
-    /* padding: 0 50px 10px; */
+  padding: 10px 70px;
+  /* padding: 0 50px 10px; */
 }
 
 .table th {
-    /* font-weight: bold; */
-    text-decoration: underline;
+  /* font-weight: bold; */
+  text-decoration: underline;
 }
 
 .main td {
-    padding: 5px 0;
+  padding: 5px 0;
 }
 
 .button {
-    display: flex;
-    justify-content: center;
-    font-weight: bold;
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  padding-bottom: 10px;
 }

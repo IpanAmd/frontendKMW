@@ -1,59 +1,57 @@
 .containerFluid {
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
 }
 
 .container {
-    min-height: 520px;
-    /* width: 50%; */
-    background-color: rgba(224, 245, 245, 0.8);
-    margin: 10px auto;
-    border-radius: 10px;
-    align-content: center;
+  min-height: 520px;
+  /* width: 50%; */
+  background-color: rgba(224, 245, 245, 0.8);
+  margin: 10px auto;
+  border-radius: 10px;
+  align-content: center;
 }
 
-
 .section {
-    font-weight: bold;
-    text-align: center;
-    padding: 10px 0;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .main {
-    /* width: 50%; */
-    margin: 0 auto;
-    font-weight: 400;
+  /* width: 50%; */
+  margin: 0 auto;
+  font-weight: 400;
 }
 
 .tableHead {
-    text-align: center;
-    font-weight: bold;
+  text-align: center;
+  font-weight: bold;
 }
 
 .button {
-    display: flex;
-    justify-content: left;
-    font-weight: 500;
-    margin-left: 10px;
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: left;
+  font-weight: 500;
+  margin-left: 10px;
+  padding-bottom: 10px;
 }
 
-
 .thSatu {
-    width: 5%;
+  width: 5%;
 }
 
 .thDua {
-    width: 15%;
+  width: 15%;
 }
 
 .thTiga {
-    width: 30%;
+  width: 30%;
 }
 
 .tdAksi {
-    text-align: center;
+  text-align: center;
 }
 
 .icon {
@@ -61,10 +59,10 @@
 }
 
 .icon:hover {
-    color: blue;
+  color: blue;
 }
 
 .addItem {
-    padding-left: 10px;
-    font-weight: bold;
+  padding-left: 10px;
+  font-weight: bold;
 }

@@ -37,6 +37,9 @@ function Header() {
               <a className={style.navFont} href="/basisPengetahuan">
                 Basis Pengetahuan
               </a>
+              <a className={style.navFont} href="/Histori">
+                Histori Diagnosa
+              </a>
             </Stack>
           </div>
           <div>

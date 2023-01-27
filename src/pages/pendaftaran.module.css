@@ -1,38 +1,38 @@
 .containerFluid {
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
 }
 
 .container {
-    min-height: 520px;
-    /* width: 50%; */
-    background-color: rgba(224, 245, 245, 0.8);
-    margin: 10px auto;
-    border-radius: 10px;
-    align-content: center;
+  min-height: 520px;
+  /* width: 50%; */
+  background-color: rgba(224, 245, 245, 0.8);
+  margin: 10px auto;
+  border-radius: 10px;
+  align-content: center;
 }
 
 .section {
-    font-weight: bold;
-    text-align: center;
-    padding-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
 }
 
 .section h3 {
-    margin: 20px auto;
+  margin: 20px auto;
 }
 
 .main {
-    width: 80%;
-    margin: auto;
-    font-weight: 500;
-    padding-bottom: 10px;
+  width: 80%;
+  margin: auto;
+  font-weight: 500;
+  padding-bottom: 10px;
 }
 
 .button {
-    display: flex;
-    justify-content: center;
-    font-weight: bold;
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  padding-bottom: 10px;
 }

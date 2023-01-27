@@ -19,6 +19,7 @@ import {
   EditBasisPengetahuan,
   InfoAkun,
   UbahKataSandi,
+  Histori,
 } from "./pages";
 import ProtectedToken from "./auth/ProtectedToken";
 import CheckClient from "./auth/CheckClient";
@@ -109,6 +110,7 @@ function App() {
             path="EditBasisPengetahuan/:id"
             element={<EditBasisPengetahuan />}
           />
+          <Route path="Histori" element={<Histori />} />
         </Routes>
       </BrowserRouter>
     </>
